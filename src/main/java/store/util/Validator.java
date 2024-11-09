@@ -1,10 +1,12 @@
 package store.util;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Validator {
+
+    private Validator(){}
 
     public static int validateNum(String num) {
         return validateNegative(validateIsInteger(num));
@@ -26,10 +28,10 @@ public class Validator {
         return num;
     }
 
-    public static LocalDateTime validateTime(String date) {
+    public static LocalDate validateDate(String date) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            return LocalDateTime.parse(date, formatter);
+            return LocalDate.parse(date, formatter);
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException();
         }

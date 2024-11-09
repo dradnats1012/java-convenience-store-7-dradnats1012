@@ -8,6 +8,8 @@ import java.util.List;
 
 public class FilesReader {
 
+    private FilesReader(){}
+
     public static List<String> readProductsFile() {
         List<String> products = new ArrayList<>();
         try {
