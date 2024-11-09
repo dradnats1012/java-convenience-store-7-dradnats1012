@@ -1,21 +1,20 @@
 package store.model.promotion;
 
-import java.time.LocalDateTime;
+public class Promotion {
+    private String name;
+    private Buy buy;
+    private Get get;
+    private Period period;
 
-import store.util.Validator;
-
-public abstract class Promotion {
-    protected String name;
-    protected Buy buy;
-    protected Get get;
-    protected LocalDateTime startDate;
-    protected LocalDateTime endDate;
-
-    protected Promotion(String name, String buy, String get, String startDate, String endDate) {
+    public Promotion(String name, String buy, String get, String startDate, String endDate) {
         this.name = name;
         this.buy = new Buy(buy);
         this.get = new Get(get);
-        this.startDate = Validator.validateTime(startDate);
-        this.endDate = Validator.validateTime(endDate);
+        this.period = new Period(startDate, endDate);
     }
+
+    public String getName(){
+        return name;
+    }
+
 }

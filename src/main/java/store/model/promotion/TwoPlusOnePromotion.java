@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 import store.util.Validator;
 
-public class OnePlusOnePromotion implements Promotion {
+public class TwoPlusOnePromotion implements Promotion {
 
     private String name;
     private Buy buy;
@@ -13,7 +13,7 @@ public class OnePlusOnePromotion implements Promotion {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    protected OnePlusOnePromotion(String name, String buy, String get, String startDate, String endDate) {
+    protected TwoPlusOnePromotion(String name, String buy, String get, String startDate, String endDate) {
         this.name = name;
         this.buy = new Buy(buy);
         this.get = new Get(get);
