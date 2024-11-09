@@ -1,19 +1,19 @@
-package store.model;
+package store.model.product;
 
 import store.model.promotion.Promotion;
 
 public class Product {
 
     private final String name;
-    private final int price;
+    private final Price price;
+    private final Quantity quantity;
     private final Promotion promotion;
-    private final int quantity;
 
-    public Product(String name, int price, Promotion promotion, int quantity) {
+    public Product(String name, String price, String quantity, Promotion promotion) {
         this.name = name;
-        this.price = price;
+        this.price = new Price(price);
+        this.quantity = new Quantity(quantity);
         this.promotion = promotion;
-        this.quantity = quantity;
     }
 
     public String getName() {
@@ -21,11 +21,11 @@ public class Product {
     }
 
     public int getPrice() {
-        return price;
+        return price.getPrice();
     }
 
     public int getQuantity() {
-        return quantity;
+        return quantity.getQuantity();
     }
 
     public Promotion getPromotion() {
