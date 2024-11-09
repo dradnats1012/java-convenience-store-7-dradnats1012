@@ -33,4 +33,11 @@ public class PromotionManager {
     public int getSize(){
         return promotions.size();
     }
+
+    public Promotion findByName(String name) {
+        return promotions.stream()
+            .filter(promotion -> promotion.getName().equalsIgnoreCase(name))
+            .findFirst()
+            .orElse(null);
+    }
 }
