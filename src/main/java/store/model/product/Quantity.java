@@ -4,7 +4,7 @@ import store.util.Validator;
 
 public class Quantity {
 
-    private final int quantity;
+    private int quantity;
 
     public Quantity(String quantity){
         this.quantity = Validator.validateNum(quantity);
@@ -12,5 +12,13 @@ public class Quantity {
 
     public int getQuantity(){
         return quantity;
+    }
+
+    public void minus(int purchasedAmount){
+        quantity -= purchasedAmount;
+    }
+
+    public void add(int amount){
+        quantity += amount;
     }
 }
