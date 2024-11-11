@@ -33,7 +33,7 @@ public class Product {
         return normalQuantity.getQuantity();
     }
 
-    public int getPromotionQuantity(){
+    public int getPromotionQuantity() {
         return promotionQuantity.getQuantity();
     }
 
@@ -41,15 +41,15 @@ public class Product {
         return promotion;
     }
 
-    public PromotionBenefitDTO purchasedByPromotion(int purchaseQuantity){
+    public PromotionBenefitDTO purchasedByPromotion(int purchaseQuantity) {
         PromotionBenefitDTO promotionBenefitDTO = promotion.purchase(purchaseQuantity);
         minusPromotionQuantity(purchaseQuantity);
 
         return promotionBenefitDTO;
     }
 
-    public void purchasedByNormal(int purchaseQuantity){
-        if(purchaseQuantity > normalQuantity.getQuantity()){
+    public void purchasedByNormal(int purchaseQuantity) {
+        if (purchaseQuantity > normalQuantity.getQuantity()) {
             throw new IllegalArgumentException(ERROR_NOT_EXIST_PRODUCT.getMessage());
         }
         normalQuantity.minus(purchaseQuantity);

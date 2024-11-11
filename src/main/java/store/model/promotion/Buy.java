@@ -6,11 +6,11 @@ public class Buy {
 
     private final int buy;
 
-    public Buy(String buy){
+    public Buy(String buy) {
         this.buy = Validator.validateNum(buy);
     }
 
-    public int getBuy(){
+    public int getBuy() {
         return buy;
     }
 }

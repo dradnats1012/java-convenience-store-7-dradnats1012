@@ -6,11 +6,11 @@ public class Get {
 
     private final int get;
 
-    public Get(String get){
+    public Get(String get) {
         this.get = Validator.validateNum(get);
     }
 
-    public int getGet(){
+    public int getCount() {
         return get;
     }
 }

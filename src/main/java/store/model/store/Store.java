@@ -1,9 +1,13 @@
 package store.model.store;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import store.model.product.Product;
+import store.model.promotion.Promotion;
+import store.model.promotion.PromotionBenefitDTO;
 import store.model.promotion.PromotionManager;
 import store.util.Parser;
 
@@ -11,6 +15,9 @@ public class Store {
 
     private final List<Product> products = new ArrayList<>();
     private final PromotionManager manager;
+    private int givenBenefitMoney = 0;
+    private int promotionBenefitMoney = 0;
+    private Map<String, String> benefits = new HashMap<>();
 
     public Store(List<String> productsFile, PromotionManager manager) {
         this.manager = manager;
@@ -23,48 +30,89 @@ public class Store {
             .map(Parser::parsedByComma)
             .forEach(this::addProduct);
 
-        addProductsNullPromotion();
-
-        /*products.stream()
-            .forEach(product -> System.out.println(
-                product.getName() + " " + product.getQuantity() + " " + product.getPromotion()));
-    */}
-
-    private void addProduct(List<String> product) {
-        products.add(
-            new Product(
-                product.get(0).trim(),
-                product.get(1).trim(),
-                product.get(2).trim(),
-                manager.findByName(product.get(3).trim())
-            )
-        );
     }
 
-    private void addProductsNullPromotion() {
-        for (int i = 0; i < products.size(); i++) {
-            Product product = products.get(i);
+    private void addProduct(List<String> productData) {
+        String name = productData.get(0).trim();
+        String price = productData.get(1).trim();
+        String quantity = productData.get(2).trim();
+        String promotionName = productData.get(3).trim();
 
-            if (product.getPromotion() != null) {
-                boolean existsWithNullPromotion = products.stream()
-                    .anyMatch(p -> p.getName().equals(product.getName()) && p.getPromotion() == null);
+        Promotion promotion = manager.findByName(promotionName);
+        Product existingProduct = findByName(name);
+        if (alreadyExist(existingProduct, promotion, quantity))
+            return;
 
-                if (!existsWithNullPromotion) {
-                    Product newProduct = new Product(
-                        product.getName(),
-                        String.valueOf(product.getPrice()),
-                        "0",
-                        null
-                    );
+        String normalQuantity = promotion == null ? quantity : "0";
+        String promotionQuantity = promotion != null ? quantity : "0";
 
-                    products.add(i + 1, newProduct);
-                    i++;
+        products.add(new Product(name, price, normalQuantity, promotionQuantity, promotion));
+    }
+
+    private static boolean alreadyExist(Product existingProduct, Promotion promotion, String quantity) {
+        if (existingProduct != null) {
+            if (promotion == null) {
+                existingProduct.updateNormalQuantity(Integer.parseInt(quantity));
+            }
+
+            if (promotion != null) {
+                existingProduct.updatePromotionQuantity(Integer.parseInt(quantity));
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public void purchaseProduct(String productName, int purchaseQuantity) {
+        for (Product product : products) {
+            if (product.getName().equals(productName)) {
+                Promotion promotion = product.getPromotion();
+                if (promotion != null && promotion.getIsPeriod()) {
+                    PromotionBenefitDTO promotionBenefitDTO = product.purchasedByPromotion(purchaseQuantity);
+                    calculateGivenBenefitMoney(productName, promotionBenefitDTO.givenBenefit());
+                    calculatePromotionBenefitMoney(productName, promotionBenefitDTO.givenBenefit(), promotion);
+                }
+                if (promotion == null || !promotion.getIsPeriod()) {
+                    product.purchasedByNormal(purchaseQuantity);
                 }
             }
         }
     }
 
-    public List<Product> getProducts(){
+    public int calculateTotalMoney(String productName, int purchaseQuantity) {
+        return findByName(productName).getPrice() * purchaseQuantity;
+    }
+
+    public void calculateGivenBenefitMoney(String productName, int givenBenefit) {
+        givenBenefitMoney += findByName(productName).getPrice() * givenBenefit;
+        benefits.put(productName, String.valueOf(givenBenefit));
+    }
+
+    public void calculatePromotionBenefitMoney(String productName, int givenBenefit, Promotion promotion) {
+        promotionBenefitMoney +=
+            findByName(productName).getPrice() * (givenBenefit / promotion.getCount()) * promotion.getTotal();
+    }
+
+    public Product findByName(String productName) {
+        return products.stream()
+            .filter(promotion -> promotion.getName().equalsIgnoreCase(productName))
+            .findFirst()
+            .orElse(null);
+    }
+
+    public int getGivenBenefitMoney() {
+        return givenBenefitMoney;
+    }
+
+    public int getPromotionBenefitMoney() {
+        return promotionBenefitMoney;
+    }
+
+    public List<Product> getProducts() {
         return products;
+    }
+
+    public Map<String, String> getBenefits() {
+        return benefits;
     }
 }

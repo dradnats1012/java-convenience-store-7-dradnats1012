@@ -32,19 +32,21 @@ public class OutputView {
             System.out.printf(RECEIPT_LIST.getMessage(), product.name(), product.quantity(), product.price())
         );
 
-        // BenefitDTO 리스트 출력
         System.out.println(RECEIPT_BENEFIT.getMessage());
         receiptDTO.benefitDTOS().forEach(benefit ->
             System.out.printf(RECEIPT_BENEFIT_LIST.getMessage(), benefit.name(), benefit.quantity())
         );
 
-        // MoneyDTO 출력
         System.out.println(RECEIPT_LINE.getMessage());
         ReceiptDTO.MoneyDTO money = receiptDTO.moneyDTO();
         System.out.printf(RECEIPT_TOTAL_MONEY.getMessage(), receiptDTO.totalQuantity(), money.totalMoney());
         System.out.printf(RECEIPT_PROMOTION_SALE.getMessage(), money.promotionSaleMoney());
         System.out.printf(RECEIPT_MEMBERSHIP_SALE.getMessage(), money.membershipSaleMoney());
         System.out.printf(RECEIPT_PAY_MONEY.getMessage(), money.payMoney());
+    }
+
+    public static void printException(String errorMessage) {
+        System.out.println(errorMessage);
     }
 }
 

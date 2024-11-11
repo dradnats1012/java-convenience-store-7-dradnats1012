@@ -9,23 +9,23 @@ public enum Message {
     INPUT_MORE_BENEFIT("현재 %s은(는) %d개를 무료로 더 받을 수 있습니다. 추가하시겠습니까? (Y/N)"),
     HELLO_MESSAGE("안녕하세요. W편의점입니다.\n현재 보유하고 있는 상품입니다.\n"),
     RECEIPT_HEADER("==============W 편의점================"),
-    RECEIPT_LIST_NAME("상품명\t\t수량\t금액"),
-    RECEIPT_LIST("%s\t\t%s\t%s"),
-    RECEIPT_BENEFIT("=============증\t정==============="),
-    RECEIPT_TOTAL_MONEY("총구매액\t\t%s\t%s"),
-    RECEIPT_PROMOTION_SALE("행사할인\t\t\t-%s"),
-    RECEIPT_MEMBERSHIP_SALE("멤버십할인\t\t\t-%s"),
-    RECEIPT_PAY_MONEY("내실돈\t\t\t%s")
-    ;
-
+    RECEIPT_LIST_NAME("상품명\t\t\t\t수량\t\t\t금액"),
+    RECEIPT_LIST("%-15s %5s %10s%n"),
+    RECEIPT_BENEFIT("=============증\t\t정==============="),
+    RECEIPT_BENEFIT_LIST("%s\t\t%s%n"),
+    RECEIPT_LINE("===================================="),
+    RECEIPT_TOTAL_MONEY("총구매액\t\t\t\t%s\t\t%s%n"),
+    RECEIPT_PROMOTION_SALE("행사할인\t\t\t\t\t\t-%s%n"),
+    RECEIPT_MEMBERSHIP_SALE("멤버십할인\t\t\t\t\t\t-%s%n"),
+    RECEIPT_PAY_MONEY("내실돈\t\t\t\t\t\t %s%n%n");
 
     private final String message;
 
-    Message(String message){
+    Message(String message) {
         this.message = message;
     }
 
-    public String getMessage(){
+    public String getMessage() {
         return message;
     }
 }

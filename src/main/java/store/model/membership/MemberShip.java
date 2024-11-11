@@ -8,17 +8,17 @@ public class MemberShip {
     private final int nonePromotionMoney;
     private final int saledMoney;
 
-    public MemberShip(int nonePromotionMoney){
+    public MemberShip(int nonePromotionMoney) {
         this.nonePromotionMoney = nonePromotionMoney;
         this.saledMoney = calculateDiscountedMoney();
     }
 
     private int calculateDiscountedMoney() {
-        int calculatedDiscount = (int) (nonePromotionMoney * DISCOUNT_RATE);
+        int calculatedDiscount = (int)(nonePromotionMoney * DISCOUNT_RATE);
         return Math.min(calculatedDiscount, MAX_DISCOUNT);
     }
 
-    public int getSaledMoney(){
+    public int getSaledMoney() {
         return saledMoney;
     }
 }

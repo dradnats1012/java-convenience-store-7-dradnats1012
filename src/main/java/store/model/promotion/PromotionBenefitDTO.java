@@ -5,7 +5,7 @@ public record PromotionBenefitDTO(
     int remainBenefit
 ) {
 
-    public static PromotionBenefitDTO of(int givenBenefit, int remainBenefit){
+    public static PromotionBenefitDTO of(int givenBenefit, int remainBenefit) {
         return new PromotionBenefitDTO(
             givenBenefit,
             remainBenefit

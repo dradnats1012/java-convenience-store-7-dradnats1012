@@ -31,11 +31,11 @@ public class Counter {
         return totalMoney;
     }
 
-    public int getNonePromotionMoney(){
+    public int getNonePromotionMoney() {
         return totalMoney - store.getPromotionBenefitMoney();
     }
 
-    public int getTotalQuantity(){
+    public int getTotalQuantity() {
         return shoppingCart.getTotalQuantity();
     }
 }

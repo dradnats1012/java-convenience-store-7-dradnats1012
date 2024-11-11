@@ -20,7 +20,7 @@ public class InputView {
     }
 
     public static String getIsMorePurchase() {
-        System.out.printf(INPUT_IS_MORE_PURCHASE.getMessage());
+        System.out.println(INPUT_IS_MORE_PURCHASE.getMessage());
         return Console.readLine();
     }
 

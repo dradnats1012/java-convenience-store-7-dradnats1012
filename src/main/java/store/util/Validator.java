@@ -1,12 +1,15 @@
 package store.util;
 
+import static store.util.ErrorMessage.ERROR_INCORRECT_INPUT;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Validator {
 
-    private Validator(){}
+    private Validator() {
+    }
 
     public static int validateNum(String num) {
         return validateNegative(validateIsInteger(num));
@@ -34,6 +37,12 @@ public class Validator {
             return LocalDate.parse(date, formatter);
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException();
+        }
+    }
+
+    public static void validateYesOrNo(String userConsent) {
+        if (!userConsent.equalsIgnoreCase("Y") && !userConsent.equalsIgnoreCase("N")) {
+            throw new IllegalArgumentException(ERROR_INCORRECT_INPUT.getMessage());
         }
     }
 }

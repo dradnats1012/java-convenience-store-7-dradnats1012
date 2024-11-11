@@ -31,7 +31,7 @@ public class Promotion {
             return handleFullBenefit(purchaseQuantity, total, remain);
         }
         if (purchaseQuantity >= buy.getBuy()) {
-            return PromotionBenefitDTO.of(purchaseQuantity/total * get.getCount(), get.getCount());
+            return PromotionBenefitDTO.of(purchaseQuantity / total * get.getCount(), get.getCount());
         }
 
         return PromotionBenefitDTO.of(0, 0);
@@ -45,11 +45,11 @@ public class Promotion {
         return PromotionBenefitDTO.of(givenBenefit, remain - buy.getBuy() + 1);
     }
 
-    public int getCount(){
+    public int getCount() {
         return get.getCount();
     }
 
-    public int getTotal(){
+    public int getTotal() {
         return buy.getBuy() + get.getCount();
     }
 }
