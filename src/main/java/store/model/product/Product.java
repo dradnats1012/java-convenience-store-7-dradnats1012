@@ -41,35 +41,45 @@ public class Product {
         return promotion;
     }
 
-    public void purchasedByPromotion(int purchaseQuantity){
-        PromotionBenefitDTO promotionBenefitDTO = promotion.purchase(promotionQuantity.getQuantity(), purchaseQuantity);
-        //int purchasedAmount = promotionBenefitDTO.purchasedAmount();
-        minusQuantity(purchaseQuantity);
+    public PromotionBenefitDTO purchasedByPromotion(int purchaseQuantity){
+        PromotionBenefitDTO promotionBenefitDTO = promotion.purchase(purchaseQuantity);
+        minusPromotionQuantity(purchaseQuantity);
 
-        int remainAmount = promotionBenefitDTO.remainBenefit();
-
-        if(remainAmount != 0){
-            // 무료로 더 받을 수 있습니다
-        }
+        return promotionBenefitDTO;
     }
 
     public void purchasedByNormal(int purchaseQuantity){
         if(purchaseQuantity > normalQuantity.getQuantity()){
             throw new IllegalArgumentException(ERROR_NOT_EXIST_PRODUCT.getMessage());
         }
-
-        normalQuantity.minusQuantity(purchaseQuantity);
+        normalQuantity.minus(purchaseQuantity);
     }
 
-    private void minusQuantity(int purchaseQuantity){
-        if(purchaseQuantity > promotionQuantity.getQuantity() + normalQuantity.getQuantity()){
-            throw new IllegalArgumentException(ERROR_NOT_EXIST_PRODUCT.getMessage());
+    private void minusPromotionQuantity(int purchaseQuantity) {
+        validateQuantity(purchaseQuantity);
+
+        if (purchaseQuantity <= promotionQuantity.getQuantity()) {
+            promotionQuantity.minus(purchaseQuantity);
+            return;
         }
 
-        if(purchaseQuantity > promotionQuantity.getQuantity()){
-            promotionQuantity.minusQuantity(promotionQuantity.getQuantity());
-            int remain = purchaseQuantity - promotionQuantity.getQuantity();
-            normalQuantity.minusQuantity(remain);
+        int remainingPurchase = purchaseQuantity - promotionQuantity.getQuantity();
+        promotionQuantity.minus(promotionQuantity.getQuantity());
+        normalQuantity.minus(remainingPurchase);
+    }
+
+    private void validateQuantity(int purchaseQuantity) {
+        int totalAvailableQuantity = promotionQuantity.getQuantity() + normalQuantity.getQuantity();
+        if (purchaseQuantity > totalAvailableQuantity) {
+            throw new IllegalArgumentException(ERROR_NOT_EXIST_PRODUCT.getMessage());
         }
+    }
+
+    public void updateNormalQuantity(int quantity) {
+        this.normalQuantity.add(quantity); // 기존 수량에 추가
+    }
+
+    public void updatePromotionQuantity(int quantity) {
+        this.promotionQuantity.add(quantity); // 기존 수량에 추가
     }
 }
