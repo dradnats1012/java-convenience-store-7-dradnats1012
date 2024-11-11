@@ -25,12 +25,12 @@ public class InputView {
     }
 
     public static String getNoPromotion(String product, int count) {
-        System.out.printf(INPUT_NO_PROMOTION.getMessage(), product, count + "\n");
+        System.out.printf(INPUT_NO_PROMOTION.getMessage(), product, count);
         return Console.readLine();
     }
 
     public static String getMorePromotion(String product, int count) {
-        System.out.printf(INPUT_MORE_BENEFIT.getMessage(), product, count + "\n");
+        System.out.printf(INPUT_MORE_BENEFIT.getMessage(), product, count);
         return Console.readLine();
     }
 }

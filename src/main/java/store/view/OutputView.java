@@ -28,23 +28,19 @@ public class OutputView {
     public static void printReceipt(ReceiptDTO receiptDTO) {
         StringBuilder receipt = new StringBuilder();
 
-        // 헤더 및 리스트 헤더 추가
         receipt.append(RECEIPT_HEADER.getMessage()).append("\n");
         receipt.append(RECEIPT_LIST_NAME.getMessage()).append("\n");
 
-        // 상품 목록 추가
         receiptDTO.productDTOS().forEach(product ->
             receipt.append(
-                    String.format(RECEIPT_LIST.getMessage(), product.name(), product.quantity(), product.price()))
+                String.format(RECEIPT_LIST.getMessage(), product.name(), product.quantity(), product.price()))
         );
 
-        // 증정 혜택 섹션 추가
         receipt.append(RECEIPT_BENEFIT.getMessage()).append("\n");
         receiptDTO.benefitDTOS().forEach(benefit ->
             receipt.append(String.format(RECEIPT_BENEFIT_LIST.getMessage(), benefit.name(), benefit.quantity()))
         );
 
-        // 구분선 및 금액 섹션 추가
         receipt.append(RECEIPT_LINE.getMessage()).append("\n");
         ReceiptDTO.MoneyDTO money = receiptDTO.moneyDTO();
         receipt.append(String.format(RECEIPT_TOTAL_MONEY.getMessage(), receiptDTO.totalQuantity(), money.totalMoney()));
@@ -52,8 +48,7 @@ public class OutputView {
         receipt.append(String.format(RECEIPT_MEMBERSHIP_SALE.getMessage(), money.membershipSaleMoney()));
         receipt.append(String.format(RECEIPT_PAY_MONEY.getMessage(), money.payMoney()));
 
-        // 최종 출력
-        System.out.println(receipt.toString());
+        System.out.println(receipt);
     }
 
     public static void printException(String errorMessage) {

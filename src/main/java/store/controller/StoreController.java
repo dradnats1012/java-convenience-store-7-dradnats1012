@@ -27,7 +27,6 @@ public class StoreController {
             process(this::handleMembership);
             process(this::printReceipt);
 
-            // 재구매 여부 묻기
             continuePurchase = shouldContinuePurchase();
         } while (continuePurchase);
     }

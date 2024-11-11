@@ -1,5 +1,7 @@
 package store.model.store;
 
+import static store.util.ErrorMessage.ERROR_EXCEED_QUANTITY;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +31,6 @@ public class Store {
             .skip(1)
             .map(Parser::parsedByComma)
             .forEach(this::addProduct);
-
     }
 
     private void addProduct(List<String> productData) {
@@ -65,6 +66,9 @@ public class Store {
 
     public void purchaseProduct(String productName, int purchaseQuantity) {
         for (Product product : products) {
+            if(purchaseQuantity > product.getPromotionQuantity() + product.getNormalQuantity()){
+                throw new IllegalArgumentException(ERROR_EXCEED_QUANTITY.getMessage());
+            }
             if (product.getName().equals(productName)) {
                 Promotion promotion = product.getPromotion();
                 if (promotion != null && promotion.getIsPeriod()) {
@@ -95,9 +99,8 @@ public class Store {
 
     public Product findByName(String productName) {
         return products.stream()
-            .filter(promotion -> promotion.getName().equalsIgnoreCase(productName))
-            .findFirst()
-            .orElse(null);
+            .filter(p -> p.getName().equals(productName))
+            .findFirst().orElse(null);
     }
 
     public int getGivenBenefitMoney() {
