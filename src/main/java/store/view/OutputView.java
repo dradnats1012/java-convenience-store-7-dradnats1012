@@ -26,23 +26,34 @@ public class OutputView {
     }
 
     public static void printReceipt(ReceiptDTO receiptDTO) {
-        System.out.println(RECEIPT_HEADER.getMessage());
-        System.out.println(RECEIPT_LIST_NAME.getMessage());
+        StringBuilder receipt = new StringBuilder();
+
+        // 헤더 및 리스트 헤더 추가
+        receipt.append(RECEIPT_HEADER.getMessage()).append("\n");
+        receipt.append(RECEIPT_LIST_NAME.getMessage()).append("\n");
+
+        // 상품 목록 추가
         receiptDTO.productDTOS().forEach(product ->
-            System.out.printf(RECEIPT_LIST.getMessage(), product.name(), product.quantity(), product.price())
+            receipt.append(
+                    String.format(RECEIPT_LIST.getMessage(), product.name(), product.quantity(), product.price()))
         );
 
-        System.out.println(RECEIPT_BENEFIT.getMessage());
+        // 증정 혜택 섹션 추가
+        receipt.append(RECEIPT_BENEFIT.getMessage()).append("\n");
         receiptDTO.benefitDTOS().forEach(benefit ->
-            System.out.printf(RECEIPT_BENEFIT_LIST.getMessage(), benefit.name(), benefit.quantity())
+            receipt.append(String.format(RECEIPT_BENEFIT_LIST.getMessage(), benefit.name(), benefit.quantity()))
         );
 
-        System.out.println(RECEIPT_LINE.getMessage());
+        // 구분선 및 금액 섹션 추가
+        receipt.append(RECEIPT_LINE.getMessage()).append("\n");
         ReceiptDTO.MoneyDTO money = receiptDTO.moneyDTO();
-        System.out.printf(RECEIPT_TOTAL_MONEY.getMessage(), receiptDTO.totalQuantity(), money.totalMoney());
-        System.out.printf(RECEIPT_PROMOTION_SALE.getMessage(), money.promotionSaleMoney());
-        System.out.printf(RECEIPT_MEMBERSHIP_SALE.getMessage(), money.membershipSaleMoney());
-        System.out.printf(RECEIPT_PAY_MONEY.getMessage(), money.payMoney());
+        receipt.append(String.format(RECEIPT_TOTAL_MONEY.getMessage(), receiptDTO.totalQuantity(), money.totalMoney()));
+        receipt.append(String.format(RECEIPT_PROMOTION_SALE.getMessage(), money.promotionSaleMoney()));
+        receipt.append(String.format(RECEIPT_MEMBERSHIP_SALE.getMessage(), money.membershipSaleMoney()));
+        receipt.append(String.format(RECEIPT_PAY_MONEY.getMessage(), money.payMoney()));
+
+        // 최종 출력
+        System.out.println(receipt.toString());
     }
 
     public static void printException(String errorMessage) {

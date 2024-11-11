@@ -12,7 +12,7 @@ public enum Message {
     RECEIPT_LIST_NAME("상품명\t\t\t\t수량\t\t\t금액"),
     RECEIPT_LIST("%-15s %5s %10s%n"),
     RECEIPT_BENEFIT("=============증\t\t정==============="),
-    RECEIPT_BENEFIT_LIST("%s\t\t%s%n"),
+    RECEIPT_BENEFIT_LIST("%s\t\t\t\t%s%n"),
     RECEIPT_LINE("===================================="),
     RECEIPT_TOTAL_MONEY("총구매액\t\t\t\t%s\t\t%s%n"),
     RECEIPT_PROMOTION_SALE("행사할인\t\t\t\t\t\t-%s%n"),
