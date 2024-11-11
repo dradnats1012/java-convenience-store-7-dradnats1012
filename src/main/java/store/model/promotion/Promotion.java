@@ -23,29 +23,33 @@ public class Promotion {
         return isPeriod;
     }
 
-    public PromotionBenefitDTO purchase(int productQuantity, int purchaseQuantity) {
-        int total = buy.getBuy() + get.getGet();
+    public PromotionBenefitDTO purchase(int purchaseQuantity) {
+        int total = buy.getBuy() + get.getCount();
         int remain = purchaseQuantity % total;
 
         if (purchaseQuantity >= total) {
-            handleFullBenefit(purchaseQuantity, total, remain);
+            return handleFullBenefit(purchaseQuantity, total, remain);
         }
         if (purchaseQuantity >= buy.getBuy()) {
-            return PromotionBenefitDTO.of(0, get.getGet());
+            return PromotionBenefitDTO.of(purchaseQuantity/total * get.getCount(), get.getCount());
         }
 
         return PromotionBenefitDTO.of(0, 0);
     }
 
     private PromotionBenefitDTO handleFullBenefit(int purchaseQuantity, int total, int remain) {
-        int givenBenefit = (purchaseQuantity / total) * get.getGet();
+        int givenBenefit = (purchaseQuantity / total) * get.getCount();
         if (remain < buy.getBuy()) {
             return PromotionBenefitDTO.of(givenBenefit, 0);
         }
         return PromotionBenefitDTO.of(givenBenefit, remain - buy.getBuy() + 1);
     }
 
-    private boolean isBenefit(int remain) {
-        return remain >= buy.getBuy();
+    public int getCount(){
+        return get.getCount();
+    }
+
+    public int getTotal(){
+        return buy.getBuy() + get.getCount();
     }
 }

@@ -30,7 +30,7 @@ public class PromotionManager {
             );
     }
 
-    public int getSize(){
+    public int getSize() {
         return promotions.size();
     }
 
