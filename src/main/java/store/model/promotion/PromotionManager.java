@@ -20,14 +20,8 @@ public class PromotionManager {
             .forEach(promotion ->
                 promotions.add(
                     new Promotion(
-                        promotion.get(0).trim(),
-                        promotion.get(1).trim(),
-                        promotion.get(2).trim(),
-                        promotion.get(3).trim(),
-                        promotion.get(4).trim()
-                    )
-                )
-            );
+                        promotion.get(0).trim(), promotion.get(1).trim(),
+                        promotion.get(2).trim(), promotion.get(3).trim(), promotion.get(4).trim())));
     }
 
     public int getSize() {

@@ -76,10 +76,10 @@ public class Product {
     }
 
     public void updateNormalQuantity(int quantity) {
-        this.normalQuantity.add(quantity); // 기존 수량에 추가
+        this.normalQuantity.add(quantity);
     }
 
     public void updatePromotionQuantity(int quantity) {
-        this.promotionQuantity.add(quantity); // 기존 수량에 추가
+        this.promotionQuantity.add(quantity);
     }
 }

@@ -30,11 +30,8 @@ public record ReceiptDTO(
         );
     }
 
-    public record ProductDTO(
-        String name,
-        String quantity,
-        String price
-    ) {
+    public record ProductDTO(String name, String quantity, String price) {
+
         public static ProductDTO of(Map.Entry<String, String> entry, Counter counter) {
             String name = entry.getKey();
             String quantity = entry.getValue();
@@ -43,28 +40,21 @@ public record ReceiptDTO(
         }
     }
 
-    public record BenefitDTO(
-        String name,
-        String quantity
-    ) {
+    public record BenefitDTO(String name, String quantity) {
+
         public static BenefitDTO of(Map.Entry<String, String> entry) {
             return new BenefitDTO(entry.getKey(), entry.getValue());
         }
     }
 
-    public record MoneyDTO(
-        String totalMoney,
-        String promotionSaleMoney,
-        String membershipSaleMoney,
-        String payMoney
-    ) {
+    public record MoneyDTO(String totalMoney, String promotionSaleMoney, String membershipSaleMoney, String payMoney) {
+
         public static MoneyDTO of(Counter counter, MemberShip memberShip) {
             String totalMoney = DECIMAL_FORMAT.format(counter.getTotalMoney());
             String promotionSaleMoney = DECIMAL_FORMAT.format(counter.getBenefitMoney());
             String membershipSaleMoney = DECIMAL_FORMAT.format(memberShip.getSaledMoney());
             String payMoney = DECIMAL_FORMAT.format(
-                counter.getTotalMoney() - counter.getBenefitMoney() - memberShip.getSaledMoney()
-            );
+                counter.getTotalMoney() - counter.getBenefitMoney() - memberShip.getSaledMoney());
             return new MoneyDTO(totalMoney, promotionSaleMoney, membershipSaleMoney, payMoney);
         }
     }

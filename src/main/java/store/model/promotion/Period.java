@@ -19,10 +19,6 @@ public class Period {
     public boolean checkPeriod() {
         LocalDateTime today = DateTimes.now();
 
-        if (today.isBefore(startDate.atStartOfDay()) || today.isAfter(endDate.atStartOfDay())) {
-            return false;
-        }
-
-        return true;
+        return !today.isBefore(startDate.atStartOfDay()) && !today.isAfter(endDate.atStartOfDay());
     }
 }

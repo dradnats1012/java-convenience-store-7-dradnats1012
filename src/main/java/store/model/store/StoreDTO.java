@@ -45,8 +45,7 @@ public record StoreDTO(
                     product.getName(),
                     DECIMAL_FORMAT.format(product.getPrice()),
                     product.getPromotionQuantity() + "개",
-                    product.getPromotion().getName()
-                ));
+                    product.getPromotion().getName()));
             }
             return productDTOs;
         }
@@ -58,8 +57,7 @@ public record StoreDTO(
                     product.getName(),
                     DECIMAL_FORMAT.format(product.getPrice()),
                     "재고 없음",
-                    product.getPromotion().getName()
-                ));
+                    product.getPromotion().getName()));
             }
             return productDTOs;
         }
@@ -71,8 +69,7 @@ public record StoreDTO(
                     product.getName(),
                     DECIMAL_FORMAT.format(product.getPrice()),
                     product.getNormalQuantity() + "개",
-                    ""
-                ));
+                    ""));
             }
             return productDTOs;
         }
@@ -84,8 +81,7 @@ public record StoreDTO(
                     product.getName(),
                     DECIMAL_FORMAT.format(product.getPrice()),
                     "재고 없음",
-                    ""
-                ));
+                    ""));
             }
             return productDTOs;
         }
