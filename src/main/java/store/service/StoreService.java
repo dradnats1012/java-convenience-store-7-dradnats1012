@@ -47,7 +47,7 @@ public class StoreService {
         Counter counter,
         MemberShip memberShip
     ) {
-        counter.purchaseProducts();
+        //counter.purchaseProducts();
         ReceiptDTO receipt = createReceiptDTO(shoppingCart, store, counter, memberShip);
         OutputView.printReceipt(receipt);
     }

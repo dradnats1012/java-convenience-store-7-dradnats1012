@@ -19,10 +19,17 @@ public class StoreController {
 
     public void run() {
         process(this::setupStore);
-        process(this::displayMenu);
-        process(this::handlePurchase);
-        process(this::handleMembership);
-        process(this::printReceipt);
+
+        boolean continuePurchase;
+        do {
+            process(this::displayMenu);
+            process(this::handlePurchase);
+            process(this::handleMembership);
+            process(this::printReceipt);
+
+            // 재구매 여부 묻기
+            continuePurchase = shouldContinuePurchase();
+        } while (continuePurchase);
     }
 
     private void setupStore() {
@@ -49,6 +56,12 @@ public class StoreController {
 
     private void printReceipt() {
         storeService.processPurchaseAndPrintReceipt(store, shoppingCart, counter, memberShip);
+    }
+
+    private boolean shouldContinuePurchase() {
+        String rePurchaseConsent = InputView.getIsMorePurchase();
+        Validator.validateYesOrNo(rePurchaseConsent);
+        return rePurchaseConsent.equalsIgnoreCase("Y");
     }
 
     private void process(Runnable action) {
