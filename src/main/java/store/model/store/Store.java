@@ -71,15 +71,19 @@ public class Store {
             }
             if (product.getName().equals(productName)) {
                 Promotion promotion = product.getPromotion();
-                if (promotion != null && promotion.getIsPeriod()) {
-                    PromotionBenefitDTO promotionBenefitDTO = product.purchasedByPromotion(purchaseQuantity);
-                    calculateGivenBenefitMoney(productName, promotionBenefitDTO.givenBenefit());
-                    calculatePromotionBenefitMoney(productName, promotionBenefitDTO.givenBenefit(), promotion);
-                }
-                if (promotion == null || !promotion.getIsPeriod()) {
-                    product.purchasedByNormal(purchaseQuantity);
-                }
+                checkPeoriod(productName, purchaseQuantity, product, promotion);
             }
+        }
+    }
+
+    private void checkPeoriod(String productName, int purchaseQuantity, Product product, Promotion promotion) {
+        if (promotion != null && promotion.getIsPeriod()) {
+            PromotionBenefitDTO promotionBenefitDTO = product.purchasedByPromotion(purchaseQuantity);
+            calculateGivenBenefitMoney(productName, promotionBenefitDTO.givenBenefit());
+            calculatePromotionBenefitMoney(productName, promotionBenefitDTO.givenBenefit(), promotion);
+        }
+        if (promotion == null || !promotion.getIsPeriod()) {
+            product.purchasedByNormal(purchaseQuantity);
         }
     }
 

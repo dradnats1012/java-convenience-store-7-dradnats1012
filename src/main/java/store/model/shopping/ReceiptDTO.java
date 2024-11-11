@@ -1,5 +1,7 @@
 package store.model.shopping;
 
+import static store.util.Constant.PRICE_DECIMAL_FORMAT;
+
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
@@ -14,10 +16,11 @@ public record ReceiptDTO(
     MoneyDTO moneyDTO,
     int totalQuantity
 ) {
-    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("###,###");
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat(PRICE_DECIMAL_FORMAT.getMessage());
 
     public static ReceiptDTO of(Map<String, String> purchases,
-        Map<String, String> benefits, Counter counter, MemberShip memberShip) {
+        Map<String, String> benefits, Counter counter, MemberShip memberShip
+    ) {
         return new ReceiptDTO(
             purchases.entrySet().stream()
                 .map(entry -> ProductDTO.of(entry, counter))

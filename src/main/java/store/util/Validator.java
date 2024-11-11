@@ -1,5 +1,7 @@
 package store.util;
 
+import static store.util.Constant.NO;
+import static store.util.Constant.YES;
 import static store.util.ErrorMessage.ERROR_INCORRECT_INPUT;
 
 import java.time.LocalDate;
@@ -41,7 +43,7 @@ public class Validator {
     }
 
     public static void validateYesOrNo(String userConsent) {
-        if (!userConsent.equalsIgnoreCase("Y") && !userConsent.equalsIgnoreCase("N")) {
+        if (!userConsent.equalsIgnoreCase(YES.getMessage()) && !userConsent.equalsIgnoreCase(NO.getMessage())) {
             throw new IllegalArgumentException(ERROR_INCORRECT_INPUT.getMessage());
         }
     }

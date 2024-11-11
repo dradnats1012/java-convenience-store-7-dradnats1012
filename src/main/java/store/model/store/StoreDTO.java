@@ -1,5 +1,8 @@
 package store.model.store;
 
+import static store.util.Constant.NONE_QUANTITY;
+import static store.util.Constant.PRODUCT_COUNT;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +47,7 @@ public record StoreDTO(
                 productDTOs.add(new ProductDTO(
                     product.getName(),
                     DECIMAL_FORMAT.format(product.getPrice()),
-                    product.getPromotionQuantity() + "개",
+                    product.getPromotionQuantity() + PRODUCT_COUNT.getMessage(),
                     product.getPromotion().getName()));
             }
             return productDTOs;
@@ -56,7 +59,7 @@ public record StoreDTO(
                 productDTOs.add(new ProductDTO(
                     product.getName(),
                     DECIMAL_FORMAT.format(product.getPrice()),
-                    "재고 없음",
+                    NONE_QUANTITY.getMessage(),
                     product.getPromotion().getName()));
             }
             return productDTOs;
@@ -68,7 +71,7 @@ public record StoreDTO(
                 productDTOs.add(new ProductDTO(
                     product.getName(),
                     DECIMAL_FORMAT.format(product.getPrice()),
-                    product.getNormalQuantity() + "개",
+                    product.getNormalQuantity() + PRODUCT_COUNT.getMessage(),
                     ""));
             }
             return productDTOs;
@@ -80,7 +83,7 @@ public record StoreDTO(
                 productDTOs.add(new ProductDTO(
                     product.getName(),
                     DECIMAL_FORMAT.format(product.getPrice()),
-                    "재고 없음",
+                    NONE_QUANTITY.getMessage(),
                     ""));
             }
             return productDTOs;

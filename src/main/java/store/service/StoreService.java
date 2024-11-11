@@ -1,5 +1,7 @@
 package store.service;
 
+import static store.util.Constant.YES;
+
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +36,7 @@ public class StoreService {
 
     public MemberShip createMemberShip(String membershipConsent, Counter counter) {
         Validator.validateYesOrNo(membershipConsent);
-        if (membershipConsent.equalsIgnoreCase("Y")) {
+        if (membershipConsent.equalsIgnoreCase(YES.getMessage())) {
             int nonePromotionMoney = counter.getNonePromotionMoney();
             return new MemberShip(nonePromotionMoney);
         }

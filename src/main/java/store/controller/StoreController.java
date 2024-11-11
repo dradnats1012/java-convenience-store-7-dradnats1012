@@ -1,5 +1,7 @@
 package store.controller;
 
+import static store.util.Constant.YES;
+
 import store.model.membership.MemberShip;
 import store.model.shopping.ShoppingCart;
 import store.model.store.Counter;
@@ -60,7 +62,7 @@ public class StoreController {
     private boolean shouldContinuePurchase() {
         String rePurchaseConsent = InputView.getIsMorePurchase();
         Validator.validateYesOrNo(rePurchaseConsent);
-        return rePurchaseConsent.equalsIgnoreCase("Y");
+        return rePurchaseConsent.equalsIgnoreCase(YES.getMessage());
     }
 
     private void process(Runnable action) {
